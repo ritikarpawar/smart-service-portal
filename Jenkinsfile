@@ -5,6 +5,9 @@ pipeline {
         APP_NAME = "smart-service-portal"
         K8S_SERVICE = "smart-service-nodeport"
         IMAGE_NAME = "smart-service-portal:latest"
+        // Ensure Jenkins can find the Minikube and K8s configuration on Windows
+        MINIKUBE_HOME = "C:/Users/ritik"
+        KUBECONFIG = "C:/Users/ritik/.kube/config"
     }
 
     stages {
