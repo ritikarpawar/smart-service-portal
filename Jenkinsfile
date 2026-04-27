@@ -1,10 +1,10 @@
-```groovy
 pipeline {
     agent any
 
     environment {
         APP_NAME = "smart-service-portal"
         K8S_SERVICE = "smart-service-nodeport"
+        IMAGE_NAME = "smart-service-portal:latest"
     }
 
     stages {
@@ -12,54 +12,52 @@ pipeline {
             steps {
                 echo '>>> Stage 1: Pulling latest code from GitHub...'
                 checkout scm
-                echo 'Source code successfully synchronized.'
+                echo 'Source code synchronized.'
             }
         }
 
-        stage('2. Install Dependencies') {
+        stage('2. Docker Build') {
             steps {
-                echo '>>> Stage 2: Installing Application Dependencies...'
-                bat 'npm install --production'
-                echo 'Node.js dependencies installed successfully.'
+                echo '>>> Stage 2: Building Docker Image...'
+                bat "docker build -t ${IMAGE_NAME} ."
+                echo 'Docker image built successfully.'
             }
         }
 
-        stage('3. Build Verification') {
+        stage('3. Minikube Image Load') {
             steps {
-                echo '>>> Stage 3: Verifying Project Structure & Build...'
-                bat 'dir'
-                echo 'Verification complete: Files are in place and ready.'
+                echo '>>> Stage 3: Loading Image into Minikube...'
+                // This ensures Minikube uses the local image instead of trying to pull from Docker Hub
+                bat "minikube image load ${IMAGE_NAME}"
+                echo 'Image loaded into Minikube cluster.'
             }
         }
 
-        stage('4. Docker Verification') {
+        stage('4. Kubernetes Deploy') {
             steps {
-                echo '>>> Stage 4: Verifying Docker Container Status...'
-                echo 'Checking Docker Images:'
-                bat 'docker images'
-
-                echo 'Checking Running Containers:'
-                bat 'docker ps'
+                echo '>>> Stage 4: Deploying to Kubernetes Cluster...'
+                // Apply all manifests in the k8s directory
+                bat 'kubectl apply -f k8s/'
+                echo 'Kubernetes manifests applied.'
             }
         }
 
-        stage('5. Kubernetes Verification') {
+        stage('5. System Verification') {
             steps {
-                echo '>>> Stage 5: Verifying Kubernetes Deployment...'
-                echo 'Fetching Active Pods (Replicas):'
+                echo '>>> Stage 5: Verifying Deployment Status...'
+                echo 'Current Pods:'
                 bat 'kubectl get pods'
-
-                echo 'Fetching Active Services (NodePort):'
+                echo 'Current Services:'
                 bat 'kubectl get services'
             }
         }
 
-        stage('6. Application Access Info') {
+        stage('6. Application Access') {
             steps {
-                echo '>>> Stage 6: Demo Instructions for Evaluator...'
+                echo '>>> Stage 6: Demo Instructions...'
                 echo '-------------------------------------------------------'
                 echo 'PROJECT IS LIVE AND FULLY ORCHESTRATED'
-                echo 'To open the application for the demo, run:'
+                echo 'To access the application, run the following command:'
                 echo "minikube service ${K8S_SERVICE}"
                 echo '-------------------------------------------------------'
             }
@@ -68,11 +66,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ PIPELINE SUCCESS: Smart Service Portal is ready for Evaluation Review!'
+            echo '✅ PIPELINE SUCCESS: Smart Service Portal is ready for Evaluation!'
         }
         failure {
-            echo '❌ PIPELINE FAILED: Please check the Jenkins logs for errors.'
+            echo '❌ PIPELINE FAILED: Please check the Jenkins console output for errors.'
         }
     }
 }
-```
