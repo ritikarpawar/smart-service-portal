@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success | Smart Service Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav>
+        <div class="logo">
+            <i class="fas fa-microchip"></i>
+            SMART SERVICE
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+        </ul>
+        <a href="/" class="cta-btn">Back to Home</a>
+    </nav>
+
+    <div class="form-container success-card">
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Submission Successful!</h2>
+        <p style="color: var(--text-muted);">Your Service Request Has Been Submitted Successfully</p>
+        
+        <div class="data-preview" id="requestDetails">
+            <p style="text-align: center; color: var(--text-muted);">Loading summary...</p>
+        </div>
+
+        <button onclick="window.location.href='/'" class="submit-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--card-border); margin-top: 2rem;">Return to Homepage</button>
+    </div>
+
+    <script>
+        // Fetch the latest request data to show on the success page
+        async function loadRequestDetails() {
+            try {
+                const response = await fetch('/api/latest-request');
+                const data = await response.json();
+                
+                if (data.fullName) {
+                    const container = document.getElementById('requestDetails');
+                    container.innerHTML = `
+                        <h4 style="margin-bottom: 1rem; color: var(--primary);">Request Summary</h4>
+                        <div class="data-row"><span>Name:</span> <span>${data.fullName}</span></div>
+                        <div class="data-row"><span>Service:</span> <span>${data.serviceType}</span></div>
+                        <div class="data-row"><span>Phone:</span> <span>${data.phone}</span></div>
+                        <div class="data-row"><span>Date:</span> <span>${data.preferredDate}</span></div>
+                        <div class="data-row"><span>Address:</span> <span>${data.address}</span></div>
+                        <div class="data-row" style="border:none;"><span>Time:</span> <span>${data.timestamp}</span></div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching request details:', error);
+            }
+        }
+        
+        window.onload = loadRequestDetails;
+    </script>
+</body>
+</html>

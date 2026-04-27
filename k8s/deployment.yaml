@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-service-deployment
+  labels:
+    app: smart-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: smart-service
+  template:
+    metadata:
+      labels:
+        app: smart-service
+    spec:
+      containers:
+      - name: smart-service-container
+        image: smart-service-portal:latest
+        imagePullPolicy: Never # Critical for Minikube local images
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Service | Smart Service Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav>
+        <div class="logo">
+            <i class="fas fa-microchip"></i>
+            SMART SERVICE
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/request">Book Now</a></li>
+        </ul>
+        <a href="/" class="cta-btn">Back to Home</a>
+    </nav>
+
+    <div class="form-container">
+        <h2 style="margin-bottom: 2rem; font-size: 2rem; text-align: center;">Book Your <span style="color: var(--primary);">Service</span></h2>
+        
+        <form action="/api/submit-request" method="POST" id="requestForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="fullName" placeholder="Enter your full name" required>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" placeholder="+91 98765 43210" required>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label>Service Type</label>
+                    <select name="serviceType" required>
+                        <option value="" disabled selected>Select a service</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Tutor">Tutor</option>
+                        <option value="Beautician">Beautician</option>
+                        <option value="Carpenter">Carpenter</option>
+                        <option value="AC Repair">AC Repair</option>
+                        <option value="Home Cleaning">Home Cleaning</option>
+                        <option value="Appliance Repair">Appliance Repair</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Date</label>
+                    <input type="date" name="preferredDate" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Full Address</label>
+                <textarea name="address" rows="3" placeholder="Enter your complete address" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Notes (Optional)</label>
+                <textarea name="notes" rows="2" placeholder="Any specific requirements..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Submit Request</button>
+        </form>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Service Portal | Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav>
+        <div class="logo">
+            <i class="fas fa-microchip"></i>
+            SMART SERVICE
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="/request">Book Now</a></li>
+        </ul>
+        <a href="/request" class="cta-btn">Get Started</a>
+    </nav>
+
+    <header class="hero">
+        <h1>Your All-in-One <span>Smart Home</span> Service Partner</h1>
+        <p>Premium home services at your doorstep. From electrical repairs to deep cleaning, we manage it all with professional expertise.</p>
+        <div style="display: flex; gap: 1rem;">
+            <a href="/request" class="cta-btn">Book a Service</a>
+            <a href="#services" class="cta-btn" style="background: var(--card-bg); border: 1px solid var(--card-border); color: white;">Explore Services</a>
+        </div>
+    </header>
+
+    <section id="services" class="services-grid">
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Electrician</h3>
+            <p>Smart wiring, fixture installs, and emergency repairs for your home.</p>
+        </div>
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-faucet"></i></div>
+            <h3>Plumber</h3>
+            <p>Expert leakage fixing and modern bathroom installations.</p>
+        </div>
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-book-reader"></i></div>
+            <h3>Tutor</h3>
+            <p>On-demand education for students from expert professionals.</p>
+        </div>
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-scissors"></i></div>
+            <h3>Beautician</h3>
+            <p>Professional salon services at the comfort of your home.</p>
+        </div>
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-hammer"></i></div>
+            <h3>Carpenter</h3>
+            <p>Custom furniture and modern wood repairs with precision.</p>
+        </div>
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-snowflake"></i></div>
+            <h3>AC Repair</h3>
+            <p>Quick cooling and maintenance for all air conditioning models.</p>
+        </div>
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-broom"></i></div>
+            <h3>Home Cleaning</h3>
+            <p>Deep cleaning services that make your home shine like new.</p>
+        </div>
+        <div class="service-card" onclick="window.location.href='/request'">
+            <div class="service-icon"><i class="fas fa-tv"></i></div>
+            <h3>Appliance Repair</h3>
+            <p>Fast fixes for refrigerators, washing machines, and TVs.</p>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 3rem; color: var(--text-muted); border-top: 1px solid var(--card-border);">
+        <p>&copy; 2026 Smart Service Portal. Built for DevOps Demo.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
