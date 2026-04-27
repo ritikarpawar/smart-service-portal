@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -10,7 +11,6 @@ pipeline {
         stage('1. Git Checkout') {
             steps {
                 echo '>>> Stage 1: Pulling latest code from GitHub...'
-                // In a real Jenkins setup, this uses 'checkout scm'
                 checkout scm
                 echo 'Source code successfully synchronized.'
             }
@@ -19,7 +19,7 @@ pipeline {
         stage('2. Install Dependencies') {
             steps {
                 echo '>>> Stage 2: Installing Application Dependencies...'
-                sh 'npm install --production'
+                bat 'npm install --production'
                 echo 'Node.js dependencies installed successfully.'
             }
         }
@@ -27,7 +27,7 @@ pipeline {
         stage('3. Build Verification') {
             steps {
                 echo '>>> Stage 3: Verifying Project Structure & Build...'
-                sh 'ls -R'
+                bat 'dir'
                 echo 'Verification complete: Files are in place and ready.'
             }
         }
@@ -36,10 +36,10 @@ pipeline {
             steps {
                 echo '>>> Stage 4: Verifying Docker Container Status...'
                 echo 'Checking Docker Images:'
-                sh 'docker images | grep ${APP_NAME}'
-                
+                bat 'docker images'
+
                 echo 'Checking Running Containers:'
-                sh 'docker ps | grep ${APP_NAME} || echo "Application container is managed by Kubernetes"'
+                bat 'docker ps'
             }
         }
 
@@ -47,10 +47,10 @@ pipeline {
             steps {
                 echo '>>> Stage 5: Verifying Kubernetes Deployment...'
                 echo 'Fetching Active Pods (Replicas):'
-                sh 'kubectl get pods'
-                
+                bat 'kubectl get pods'
+
                 echo 'Fetching Active Services (NodePort):'
-                sh 'kubectl get services'
+                bat 'kubectl get services'
             }
         }
 
@@ -66,23 +66,6 @@ pipeline {
         }
     }
 
-    /* 
-    Optional Advanced Section (Commented for Demo Safety):
-    
-    stage('Advanced: Rebuild & Redeploy') {
-        steps {
-            echo 'Rebuilding Docker image...'
-            sh 'docker build -t smart-service-portal:latest .'
-            
-            echo 'Rolling restart of Kubernetes deployment...'
-            sh 'kubectl rollout restart deployment/smart-service-deployment'
-            
-            echo 'Verifying rollout status...'
-            sh 'kubectl rollout status deployment/smart-service-deployment'
-        }
-    }
-    */
-
     post {
         success {
             echo '✅ PIPELINE SUCCESS: Smart Service Portal is ready for Evaluation Review!'
@@ -92,3 +75,4 @@ pipeline {
         }
     }
 }
+```
